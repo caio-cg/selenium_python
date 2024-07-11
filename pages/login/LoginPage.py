@@ -10,6 +10,7 @@ class _Selectors:
     login_button = (By.ID, "login-button")
     accepted_usernames_container = (By.ID, "login_credentials")
     password_container = (By.CSS_SELECTOR, "div[data-test=login-password]")
+    error_textbox = (By.CSS_SELECTOR, "h3[data-test=error]")
 
 
 class LoginPage(BasePageObject):
@@ -34,4 +35,10 @@ class LoginPage(BasePageObject):
         return self._get_inner_text(_Selectors.accepted_usernames_container).splitlines()[1:]
 
     def get_password(self) -> str:
-        return self._get_inner_text(_Selectors.password_container).splitlines()[1:]
+        return self._get_inner_text(_Selectors.password_container).splitlines()[1]
+
+    def is_error_message_displayed(self) -> bool:
+        return self._is_displayed(_Selectors.error_textbox)
+
+    def get_error_message(self) -> str:
+        return self._get_inner_text(_Selectors.error_textbox)
