@@ -46,3 +46,8 @@ class BasePageObject:
         element: WebElement = self.wait.until(EC.presence_of_element_located(locator_type_and_selector),
                                               f"Element with locator '{locator_type_and_selector[1]}' is not visible")
         return element.is_displayed()
+
+    def _wait_visibility_of(self, locator_type_and_selector: Tuple[str, str]):
+        self.wait.until(EC.presence_of_element_located(locator_type_and_selector)
+                        and EC.visibility_of_element_located(locator_type_and_selector),
+                        f"Element with locator '{locator_type_and_selector[1]}' is not visible")
